@@ -1,0 +1,23 @@
+﻿# Python environments and caches
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+
+# DVC cache and local credentials
+.dvc/cache/
+.dvc/tmp/
+.dvc/config.local
+
+# Models handled by DVC
+*.h5
+
+# Credentials
+.env
+.env.*
+*credentials*.json
+client_secret*.json
+
+# Editor files
+.vscode/
+.idea/
