@@ -7,3 +7,5 @@ This project uses a fully connected TensorFlow ANN to classify Fashion-MNIST ima
 The pipeline prepares raw data, preprocesses it, trains the model, and evaluates its performance.
 
 Target: at least 85% test accuracy.
+
+This project uses a fully connected ANN for Fashion-MNIST classification, with a target test accuracy of at least 85%.
