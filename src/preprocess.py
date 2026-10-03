@@ -9,6 +9,10 @@ def main():
     with open("params.yaml", encoding="utf-8-sig") as file:
         params = yaml.safe_load(file)["preprocess"]
 
+    if not 0 < params["test_size"] < 1:
+        raise ValueError("preprocess.test_size must be between 0 and 1")
+    
+
     raw_dir = Path("data/raw")
     processed_dir = Path("data/processed")
 
