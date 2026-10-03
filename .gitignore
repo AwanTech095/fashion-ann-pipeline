@@ -21,3 +21,4 @@ client_secret*.json
 # Editor files
 .vscode/
 .idea/
+/models
