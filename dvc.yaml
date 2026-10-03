@@ -7,17 +7,7 @@ stages:
     outs:
       - data/raw
 
-  preprocess:
-    cmd: python src/preprocess.py
-    deps:
-      - src/preprocess.py
-      - requirements.txt
-      - data/raw
-    params:
-      - preprocess.test_size
-      - preprocess.seed
-    outs:
-      - data/processed
+  
 
   train:
     cmd: python src/train.py
