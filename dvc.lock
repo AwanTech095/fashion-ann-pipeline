@@ -1,0 +1,108 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python src/prepare.py
+    deps:
+    - path: requirements.txt
+      hash: md5
+      md5: 58a3cd9492bd59b8abbceb44205551cc
+      size: 2696
+    - path: src/prepare.py
+      hash: md5
+      md5: 0248ae004bf971cd83df3e52a830f499
+      size: 759
+    outs:
+    - path: data/raw
+      hash: md5
+      md5: 23b0000338669d2c61217dbd94633aa0.dir
+      size: 54950512
+      nfiles: 4
+  preprocess:
+    cmd: python src/preprocess.py
+    deps:
+    - path: data/raw
+      hash: md5
+      md5: 23b0000338669d2c61217dbd94633aa0.dir
+      size: 54950512
+      nfiles: 4
+    - path: requirements.txt
+      hash: md5
+      md5: 58a3cd9492bd59b8abbceb44205551cc
+      size: 2696
+    - path: src/preprocess.py
+      hash: md5
+      md5: 5921f08f8eaeae3701bd65568ad957be
+      size: 1771
+    params:
+      params.yaml:
+        preprocess.seed: 42
+        preprocess.test_size: 0.2
+    outs:
+    - path: data/processed
+      hash: md5
+      md5: eeb8cf242a713e05d8e689a1ad558025.dir
+      size: 219590768
+      nfiles: 6
+  train:
+    cmd: python src/train.py
+    deps:
+    - path: data/processed
+      hash: md5
+      md5: eeb8cf242a713e05d8e689a1ad558025.dir
+      size: 219590768
+      nfiles: 6
+    - path: requirements.txt
+      hash: md5
+      md5: 58a3cd9492bd59b8abbceb44205551cc
+      size: 2696
+    - path: src/train.py
+      hash: md5
+      md5: 35e13d81889ddb87480716593024c170
+      size: 2004
+    params:
+      params.yaml:
+        train.batch_size: 128
+        train.dense_units: 128
+        train.dropout_rate: 0.2
+        train.epochs: 15
+        train.learning_rate: 0.001
+        train.seed: 42
+    outs:
+    - path: models
+      hash: md5
+      md5: 50c9cdfef7ebb60c99709c132acffd1b.dir
+      size: 1246525
+      nfiles: 2
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+    - path: data/processed
+      hash: md5
+      md5: eeb8cf242a713e05d8e689a1ad558025.dir
+      size: 219590768
+      nfiles: 6
+    - path: models
+      hash: md5
+      md5: 50c9cdfef7ebb60c99709c132acffd1b.dir
+      size: 1246525
+      nfiles: 2
+    - path: requirements.txt
+      hash: md5
+      md5: 58a3cd9492bd59b8abbceb44205551cc
+      size: 2696
+    - path: src/evaluate.py
+      hash: md5
+      md5: 66b04a5e2a78b7f6430dac6299c292a4
+      size: 2609
+    params:
+      params.yaml:
+        train.batch_size: 128
+    outs:
+    - path: metrics.json
+      hash: md5
+      md5: edc923c0587f7093767ebcc1aff0b4be
+      size: 108
+    - path: reports/confusion_matrix.png
+      hash: md5
+      md5: 305dfc8891a8911a2efdb221138bfd5e
+      size: 105629
