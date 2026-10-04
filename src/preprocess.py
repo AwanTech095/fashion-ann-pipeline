@@ -22,8 +22,8 @@ def main():
     y_test = np.load(raw_dir / "y_test.npy")
 
     # Convert raw pixel intensities to the range [0, 1].
-    x_train = x_train.astype(np.float32) / 255.0
-    x_test = x_test.astype(np.float32) / 255.0
+    x_train = x_train.astype(np.float32) / 256.0
+    x_test = x_test.astype(np.float32) / 256.0
 
     x_train, x_val, y_train, y_val = train_test_split(
         x_train,
